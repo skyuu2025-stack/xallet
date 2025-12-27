@@ -1,0 +1,7 @@
+{
+  "name": "Xallet - 2026 Financial AI Wallet",
+  "description": "An elite AI-powered financial management wallet and analysis tool designed for the 2026 global economic shift. Manage assets, get AI-driven investment advice, and optimize capital allocation with OKX-inspired aesthetics.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
