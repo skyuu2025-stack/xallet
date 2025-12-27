@@ -6,6 +6,11 @@ export enum AssetType {
   CASH = 'Cash'
 }
 
+export enum SubscriptionType {
+  FREE = 'Free',
+  PREMIUM = 'Premium'
+}
+
 export type Language = 'en' | 'cn';
 export type Currency = 'USD' | 'CNY';
 
@@ -17,7 +22,8 @@ export interface WardrobeItem {
   name: { en: string; cn: string };
   price: number;
   category: 'head' | 'body' | 'legs' | 'accessory';
-  svgSnippet: string; // Dynamic SVG part to overlay
+  svgSnippet: string; 
+  isSpecial?: boolean;
 }
 
 export interface UserStats {
@@ -26,7 +32,11 @@ export interface UserStats {
   tokens: number;
   ownedItemIds: string[];
   equippedItemIds: string[];
-  rank?: number; // Platform ranking
+  subscription: SubscriptionType;
+  rank?: number;
+  dailyEarned?: boolean;
+  dailySaved?: boolean;
+  lastActionDate?: string;
 }
 
 export interface Asset {
@@ -35,7 +45,7 @@ export interface Asset {
   symbol: string;
   type: AssetType;
   amount: number;
-  price: number; // Stored in USD base
+  price: number;
   change24h: number;
   icon: string;
 }

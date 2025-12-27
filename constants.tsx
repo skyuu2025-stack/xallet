@@ -13,22 +13,26 @@ export const EXCHANGE_RATE_USD_TO_CNY = 7.24;
 
 export const WARDROBE_ITEMS: WardrobeItem[] = [
   // Head
-  { id: 'h1', category: 'head', price: 50, name: { en: 'Neural Link', cn: '神经连接环' }, svgSnippet: `<circle cx="12" cy="7" r="5" stroke="cyan" stroke-width="0.3" fill="none" stroke-dasharray="1 1" />` },
-  { id: 'h2', category: 'head', price: 120, name: { en: 'Cyber Visor', cn: '赛博面罩' }, svgSnippet: `<rect x="7" y="9" width="10" height="2" fill="rgba(0,255,255,0.4)" rx="1" stroke="cyan" stroke-width="0.2" />` },
-  { id: 'h3', category: 'head', price: 500, name: { en: 'Martian Crown', cn: '火星之冠' }, svgSnippet: `<path d="M8 8 L10 6 L12 8 L14 6 L16 8" fill="none" stroke="gold" stroke-width="0.5" />` },
+  { id: 'h1', category: 'head', price: 50, name: { en: 'Neural Link', cn: '神经连接环' }, svgSnippet: `<circle cx="12" cy="6" r="5" stroke="cyan" stroke-width="0.3" fill="none" stroke-dasharray="1 1" />` },
+  { id: 'h2', category: 'head', price: 120, name: { en: 'Cyber Visor', cn: '赛博面罩' }, svgSnippet: `<rect x="7" y="8" width="10" height="2.2" fill="rgba(0,255,255,0.4)" rx="1.1" stroke="cyan" stroke-width="0.2" />` },
+  { id: 'h3', category: 'head', price: 500, name: { en: 'Martian Crown', cn: '火星之冠' }, svgSnippet: `<path d="M8 6 L10 3 L12 6 L14 3 L16 6" fill="none" stroke="gold" stroke-width="0.8" stroke-linecap="round" />` },
   
   // Body
-  { id: 'b1', category: 'body', price: 80, name: { en: 'Void Cloak', cn: '虚空斗篷' }, svgSnippet: `<path d="M6 12 L12 20 L18 12 Q12 10 6 12" fill="rgba(100,50,255,0.3)" stroke="white" stroke-width="0.1"/>` },
-  { id: 'b2', category: 'body', price: 300, name: { en: 'Ag Battle Suit', cn: '白银战甲' }, svgSnippet: `<path d="M7 11 Q12 9 17 11 L18 17 Q12 19 6 17 Z" fill="rgba(192,192,192,0.6)" stroke="white" stroke-width="0.5"/>` },
-  { id: 'b3', category: 'body', price: 1000, name: { en: 'Nebula Kimono', cn: '星云霓裳' }, svgSnippet: `<path d="M5 11 L19 11 L17 21 L7 21 Z" fill="rgba(255,100,250,0.2)" stroke="pink" stroke-width="0.3"/>` },
+  { id: 'b1', category: 'body', price: 80, name: { en: 'Void Cloak', cn: '虚空斗篷' }, svgSnippet: `<path d="M5 11.5 L12 23 L19 11.5 Z" fill="rgba(100,50,255,0.2)" stroke="white" stroke-width="0.1"/>` },
+  { id: 'b2', category: 'body', price: 300, name: { en: 'Ag Battle Suit', cn: '白银战甲' }, svgSnippet: `<path d="M6 11.5 L18 11.5 L16 16 L8 16 Z" fill="rgba(192,192,192,0.6)" stroke="white" stroke-width="0.5"/>` },
+  { id: 'b3', category: 'body', price: 1000, name: { en: 'Nebula Kimono', cn: '星云霓裳' }, svgSnippet: `<path d="M4 11.5 L20 11.5 L16 22 L8 22 Z" fill="rgba(255,100,250,0.15)" stroke="pink" stroke-width="0.3"/>` },
   
   // Legs
-  { id: 'l1', category: 'legs', price: 150, name: { en: 'Gravity Boots', cn: '重力靴' }, svgSnippet: `<rect x="8" y="19" width="3" height="2" rx="1" fill="gray" /><rect x="13" y="19" width="3" height="2" rx="1" fill="gray" />` },
-  { id: 'l2', category: 'legs', price: 400, name: { en: 'Plasma Trousers', cn: '等离子长裤' }, svgSnippet: `<path d="M9 17 L8 22 M15 17 L16 22" stroke="cyan" stroke-width="2" stroke-linecap="round" opacity="0.5" />` },
+  { id: 'l1', category: 'legs', price: 150, name: { en: 'Gravity Boots', cn: '重力靴' }, svgSnippet: `<rect x="8.5" y="20.5" width="2" height="1.5" rx="0.5" fill="gray" /><rect x="13.5" y="20.5" width="2" height="1.5" rx="0.5" fill="gray" />` },
+  { id: 'l2', category: 'legs', price: 400, name: { en: 'Plasma Trousers', cn: '等离子长裤' }, svgSnippet: `<path d="M10 21 L10 23 M14 21 L14 23" stroke="cyan" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />` },
 
   // Accessory
-  { id: 'a1', category: 'accessory', price: 30, name: { en: 'Aura Ring', cn: '灵气光环' }, svgSnippet: `<ellipse cx="12" cy="20" rx="8" ry="2" stroke="gold" stroke-width="0.2" fill="none" opacity="0.6"/>` },
-  { id: 'a2', category: 'accessory', price: 1500, name: { en: 'Quantum Wings', cn: '量子之翼' }, svgSnippet: `<path d="M6 12 Q0 6 6 0 M18 12 Q24 6 18 0" fill="none" stroke="cyan" stroke-width="0.5" opacity="0.4" />` },
+  { id: 'a1', category: 'accessory', price: 30, name: { en: 'Aura Ring', cn: '灵气光环' }, svgSnippet: `<ellipse cx="12" cy="18" rx="8" ry="1.5" stroke="gold" stroke-width="0.2" fill="none" opacity="0.6"/>` },
+  { id: 'a2', category: 'accessory', price: 1500, name: { en: 'Quantum Wings', cn: '量子之翼' }, svgSnippet: `<path d="M6 11 Q0 5 6 0 M18 11 Q24 5 18 0" fill="none" stroke="cyan" stroke-width="0.4" opacity="0.4" />` },
+
+  // Special Daily Items (isSpecial: true)
+  { id: 's1', category: 'accessory', price: 0, name: { en: 'Saver Star', cn: '储蓄之星' }, isSpecial: true, svgSnippet: `<path d="M12 16 L13 18 L15 18 L13.5 19 L14 21 L12 20 L10 21 L10.5 19 L9 18 L11 18 Z" fill="yellow" stroke="orange" stroke-width="0.1" />` },
+  { id: 's2', category: 'head', price: 0, name: { en: 'Earner Halo', cn: '致富光环' }, isSpecial: true, svgSnippet: `<ellipse cx="12" cy="3" rx="4" ry="0.8" stroke="cyan" stroke-width="0.4" fill="none" />` },
 ];
 
 export const THEME_COLORS = {
@@ -79,6 +83,23 @@ export const TRANSLATIONS = {
     silverInsight: 'Silver Insight',
     currency: 'Currency',
     dailyMartian: 'Daily Martian',
+    pricing: {
+      title: 'Upgrade to Xallet Pro',
+      subtitle: 'Unlock the full potential of 2026 finance.',
+      free: 'Standard',
+      premium: 'Elite Pro',
+      price: '$19/mo',
+      credits: 'Includes 19,000 Martian Credits',
+      features: [
+        'Advanced Gemini 3 Pro reasoning',
+        '2K/4K Asset Image Generation',
+        'Unlimited Neural OCR Scanning',
+        'Priority Martian Network Rank',
+        'Exclusive Martian Goddess Skins'
+      ],
+      upgrade: 'Unlock Elite Access',
+      current: 'Current Plan'
+    },
     companion: {
       title: 'Neural Companion',
       tokens: 'Martian Credits',
@@ -95,7 +116,12 @@ export const TRANSLATIONS = {
       milestone: 'Physical TEE Milestone',
       milestoneDesc: 'Achieve 10,000 MC & Top 100 to unlock a custom physical Martian TEE for your companion.',
       teeUnlocked: 'TEE UNLOCKED!',
-      claimTee: 'Claim Physical TEE'
+      claimTee: 'Claim Physical TEE',
+      dailyGoal: 'Daily Habit Synergy',
+      goalEarn: 'Earn',
+      goalSave: 'Save',
+      goalUnlock: 'Goal Unlocked!',
+      goalClaim: 'Claim Mystery Box'
     },
     imageEditor: {
       title: 'Neural Studio Pro',
@@ -168,6 +194,23 @@ export const TRANSLATIONS = {
     silverInsight: '白银洞察',
     currency: '币种',
     dailyMartian: '每日火星语',
+    pricing: {
+      title: '升级 Xallet Pro',
+      subtitle: '解锁 2026 全球金融体系的全部潜能。',
+      free: '普通版',
+      premium: '精英版',
+      price: '$19/月',
+      credits: '包含 19,000 火星点券 (1:1000 兑换)',
+      features: [
+        '高级 Gemini 3 Pro 深度推理',
+        '2K/4K 超清资产影像生成',
+        '无限次神经 OCR 收据扫描',
+        '火星网络优先排名权重',
+        '专属火星女神限定装扮'
+      ],
+      upgrade: '开启精英权限',
+      current: '当前方案'
+    },
     companion: {
       title: '火星同伴',
       tokens: '火星点券',
@@ -181,10 +224,15 @@ export const TRANSLATIONS = {
       male: '男性',
       female: '女性',
       ranking: '神经排名',
-      milestone: '物理 TEE 里程碑',
+      milestone: '物理 TEE 里里程碑',
       milestoneDesc: '积攒 10,000 点券并进入全站前 100，即可获赠为您定制的实体火星 TEE。',
       teeUnlocked: '定制 TEE 已解锁！',
-      claimTee: '领取实体 TEE'
+      claimTee: '领取实体 TEE',
+      dailyGoal: '每日致富协同',
+      goalEarn: '挣钱',
+      goalSave: '攒钱',
+      goalUnlock: '协同奖励已激活',
+      goalClaim: '开启火星盲盒'
     },
     imageEditor: {
       title: '影像工作室 Pro',
