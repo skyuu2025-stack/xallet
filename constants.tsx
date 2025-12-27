@@ -83,6 +83,15 @@ export const TRANSLATIONS = {
     silverInsight: 'Silver Insight',
     currency: 'Currency',
     dailyMartian: 'Daily Martian',
+    aiInsights: {
+      title: 'AI Neural Insight',
+      constructive: 'Strategic Suggestions',
+      analyze: 'Analyze Core',
+      silverAlert: 'Silver exposure high: Consider rebalancing 5% into BTC for Lunar Liquidity.',
+      savingsAlert: 'Operational buffer is 12% below target. Sync daily saving goal.',
+      marketShift: 'Global Order Shift detected. Silver volatility expected +12% this cycle.',
+      viewMore: 'Open Strategy Hub'
+    },
     pricing: {
       title: 'Upgrade to Xallet Pro',
       subtitle: 'Unlock the full potential of 2026 finance.',
@@ -194,6 +203,15 @@ export const TRANSLATIONS = {
     silverInsight: '白银洞察',
     currency: '币种',
     dailyMartian: '每日火星语',
+    aiInsights: {
+      title: 'AI 神经洞察',
+      constructive: '建设性投资建议',
+      analyze: '分析核心',
+      silverAlert: '白银敞口较高：建议将 5% 仓位轮动至 BTC 以获取流动性溢价。',
+      savingsAlert: '运营缓冲区低于目标 12%。建议同步每日攒钱计划。',
+      marketShift: '侦测到全球秩序剧变。白银波动率在本周期内预计上升 12%。',
+      viewMore: '开启策略中心'
+    },
     pricing: {
       title: '升级 Xallet Pro',
       subtitle: '解锁 2026 全球金融体系的全部潜能。',
