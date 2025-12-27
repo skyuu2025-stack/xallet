@@ -167,11 +167,28 @@ const App: React.FC = () => {
           </div>
         </div>
         
-        <div className="flex items-center gap-2">
-          <button onClick={() => setCurrency(currency === 'USD' ? 'CNY' : 'USD')} className="text-[10px] font-black border border-white/10 px-2 py-1 rounded-md bg-white/5">{currency}</button>
-          <button onClick={() => setLang(lang === 'en' ? 'cn' : 'en')} className="text-[10px] font-black border border-white/10 px-2 py-1 rounded-md bg-white/5">{lang === 'en' ? '中' : 'EN'}</button>
-          <button onClick={() => setShowProfileSetup(true)} className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center transition-colors hover:border-blue-500/50">
-             <svg className="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+        <div className="flex items-center gap-2.5">
+          <button onClick={() => setCurrency(currency === 'USD' ? 'CNY' : 'USD')} className="text-[10px] font-black border border-white/10 px-2 py-1.5 rounded-md bg-white/5 hover:bg-white/10 transition-colors uppercase">
+            {currency}
+          </button>
+          <button onClick={() => setLang(lang === 'en' ? 'cn' : 'en')} className="text-[10px] font-black border border-white/10 px-2 py-1.5 rounded-md bg-white/5 hover:bg-white/10 transition-colors">
+            {lang === 'en' ? 'CN' : 'EN'}
+          </button>
+          
+          {/* Enhanced Martian Profile Button */}
+          <button 
+            onClick={() => setShowProfileSetup(true)} 
+            className="w-9 h-9 rounded-full bg-black/40 border border-blue-500/40 flex items-center justify-center transition-all hover:border-blue-400 hover:shadow-[0_0_15px_rgba(0,98,255,0.4)] active:scale-90 relative overflow-hidden group shadow-[0_0_8px_rgba(0,0,0,0.5)]"
+          >
+            <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <svg 
+              className="w-[18px] h-[18px] text-blue-500 drop-shadow-[0_0_5px_rgba(0,98,255,0.6)]" 
+              viewBox="0 0 24 24" 
+              fill="currentColor"
+            >
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+            </svg>
+            <div className="absolute inset-0 border border-blue-500/10 rounded-full animate-pulse pointer-events-none"></div>
           </button>
         </div>
       </header>
