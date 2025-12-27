@@ -15,7 +15,7 @@ const AssetTrendChart: React.FC<AssetTrendChartProps> = ({ totalBalance, lang, c
   const currencySymbol = currency === 'USD' ? '$' : '¥';
 
   const mockData = useMemo(() => {
-    const points = timeframe === '1D' ? 24 : timeframe === '1W' ? 7 : 30;
+    const points = timeframe === '1D' ? 24 : timeframe === '1W' ? 7 : timeframe === '3M' ? 90 : timeframe === '1Y' ? 365 : 30;
     const data = [];
     let base = totalBalance * 0.9;
     for (let i = 0; i <= points; i++) {
@@ -41,9 +41,10 @@ const AssetTrendChart: React.FC<AssetTrendChartProps> = ({ totalBalance, lang, c
 
   return (
     <div className="bg-white/[0.03] backdrop-blur-xl border border-white/5 rounded-[2rem] p-5 space-y-4 shadow-2xl overflow-hidden relative">
-      <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full"></div>
+      {/* Background Decorative Blur - Added pointer-events-none to prevent blocking clicks */}
+      <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full pointer-events-none"></div>
       
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between relative z-10">
         <div className="flex flex-col">
           <span className="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em]">
             {lang === 'cn' ? '资产波动趋势' : 'PORTFOLIO TREND'}
@@ -59,13 +60,17 @@ const AssetTrendChart: React.FC<AssetTrendChartProps> = ({ totalBalance, lang, c
           </div>
         </div>
         
-        <div className="flex bg-[#111] p-1 rounded-xl border border-white/5">
+        {/* Timeframe Selector - Improved padding and z-index to ensure clickability */}
+        <div className="flex bg-[#111] p-1 rounded-xl border border-white/5 shrink-0 z-20">
           {(['1D', '1W', '1M', '3M', '1Y'] as const).map((tf) => (
             <button
               key={tf}
-              onClick={() => setTimeframe(tf)}
-              className={`px-2.5 py-1 text-[9px] font-black rounded-lg transition-all ${
-                timeframe === tf ? 'bg-[#0062ff] text-white' : 'text-gray-500 hover:text-gray-300'
+              onClick={(e) => {
+                e.stopPropagation();
+                setTimeframe(tf);
+              }}
+              className={`min-w-[28px] px-2 py-1.5 text-[10px] font-black rounded-lg transition-all flex items-center justify-center ${
+                timeframe === tf ? 'bg-[#0062ff] text-white shadow-[0_4px_12px_rgba(0,98,255,0.3)]' : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
               }`}
             >
               {labels[tf]}
@@ -74,7 +79,7 @@ const AssetTrendChart: React.FC<AssetTrendChartProps> = ({ totalBalance, lang, c
         </div>
       </div>
 
-      <div className="h-[140px] w-full">
+      <div className="h-[140px] w-full relative z-10">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={mockData}>
             <defs>
@@ -92,12 +97,12 @@ const AssetTrendChart: React.FC<AssetTrendChartProps> = ({ totalBalance, lang, c
               labelStyle={{ display: 'none' }}
               formatter={(value: any) => [`${currencySymbol}${value.toLocaleString()}`, 'Balance']}
             />
-            <Area type="monotone" dataKey="value" stroke="#0062ff" strokeWidth={3} fillOpacity={1} fill="url(#colorValue)" animationDuration={1500} />
+            <Area type="monotone" dataKey="value" stroke="#0062ff" strokeWidth={3} fillOpacity={1} fill="url(#colorValue)" animationDuration={1000} />
           </AreaChart>
         </ResponsiveContainer>
       </div>
       
-      <div className="flex justify-between items-center text-[8px] font-black text-gray-600 uppercase tracking-widest px-1">
+      <div className="flex justify-between items-center text-[8px] font-black text-gray-600 uppercase tracking-widest px-1 relative z-10">
         <span>MARTIAN CORE TELEMETRY</span>
         <span className="flex items-center gap-1">
           <div className="w-1 h-1 rounded-full bg-[#00df9a] animate-pulse"></div>

@@ -1,16 +1,18 @@
 
 import React from 'react';
-import { Asset, Currency } from '../types';
-import { EXCHANGE_RATE_USD_TO_CNY } from '../constants';
+import { Asset, Currency, Language } from '../types';
+import { EXCHANGE_RATE_USD_TO_CNY, TRANSLATIONS } from '../constants';
 
 interface AssetListProps {
   assets: Asset[];
   currency: Currency;
+  lang?: Language;
 }
 
-const AssetList: React.FC<AssetListProps> = ({ assets, currency }) => {
+const AssetList: React.FC<AssetListProps> = ({ assets, currency, lang = 'cn' }) => {
   const currencySymbol = currency === 'USD' ? '$' : '¥';
   const rate = currency === 'CNY' ? EXCHANGE_RATE_USD_TO_CNY : 1;
+  const t = TRANSLATIONS[lang];
 
   return (
     <div className="relative p-7 rounded-[3rem] bg-[#0c0c0e]/80 border border-white/10 overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl group">
@@ -50,7 +52,7 @@ const AssetList: React.FC<AssetListProps> = ({ assets, currency }) => {
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] text-gray-500 font-black uppercase tracking-widest">{asset.symbol}</span>
                   <div className="w-1 h-[1px] bg-white/20"></div>
-                  <span className="text-[8px] text-blue-500/60 font-bold uppercase">Linked Asset</span>
+                  <span className="text-[8px] text-blue-500/60 font-bold uppercase">{t.linkedAsset}</span>
                 </div>
               </div>
             </div>
@@ -73,7 +75,7 @@ const AssetList: React.FC<AssetListProps> = ({ assets, currency }) => {
       <div className="mt-6 pt-6 border-t border-white/5 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-3">
            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-ping"></div>
-           <span className="text-[8px] font-black text-gray-500 uppercase tracking-[0.4em]">Neural Sync Status: Encrypted</span>
+           <span className="text-[8px] font-black text-gray-500 uppercase tracking-[0.4em]">{t.syncStatus}: {t.encrypted}</span>
         </div>
         <div className="text-[8px] font-black text-blue-400/50 uppercase tracking-[0.2em] italic">XALLET_OS_v2.026</div>
       </div>

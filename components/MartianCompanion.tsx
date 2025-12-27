@@ -105,13 +105,6 @@ const MartianCompanion: React.FC<MartianCompanionProps> = ({ stats, lang, onUpda
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-pink-600/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }}></div>
         
-        {/* Elegant HUD Telemetry */}
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 flex items-center gap-8 opacity-20">
-          <div className="h-[1px] w-24 bg-gradient-to-r from-transparent to-white"></div>
-          <span className="text-[7px] font-black tracking-[0.5em] text-white">NEURAL_BEAUTY_STABILIZED</span>
-          <div className="h-[1px] w-24 bg-gradient-to-l from-transparent to-white"></div>
-        </div>
-
         {/* Floating Particle Stream */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute w-1 h-1 bg-white rounded-full top-1/2 left-1/3 animate-float-particle"></div>
@@ -133,7 +126,7 @@ const MartianCompanion: React.FC<MartianCompanionProps> = ({ stats, lang, onUpda
         <div className="text-right flex flex-col items-end translate-y-2">
           <div className="text-[8px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.ranking}</div>
           <div className="px-3 py-1 rounded-full bg-[#0d0d0f]/80 backdrop-blur-md border border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-            <span className="text-[16px] font-black text-white mono tracking-tighter italic">TOP {stats.rank || 158}</span>
+            <span className="text-[16px] font-black text-white mono tracking-tighter italic">TOP {stats.rank || 582}</span>
           </div>
         </div>
       </div>
@@ -149,14 +142,14 @@ const MartianCompanion: React.FC<MartianCompanionProps> = ({ stats, lang, onUpda
         <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-8 pointer-events-auto">
            <div className="flex flex-col items-center gap-3">
              <div className="relative">
-               <div className={`w-5 h-5 rounded-sm rotate-45 border-2 transition-all duration-1000 ${stats.dailyEarned ? 'bg-purple-500 border-purple-300 shadow-[0_0_25px_#a855f7]' : 'bg-transparent border-white/10'}`}></div>
+               <div className={`w-5 h-5 rounded-full border-2 transition-all duration-1000 ${stats.dailyEarned ? 'bg-purple-500 border-purple-300 shadow-[0_0_25px_#a855f7]' : 'bg-transparent border-white/10'}`}></div>
                <div className="absolute inset-0 animate-ping opacity-20 bg-purple-400 rounded-full scale-150"></div>
              </div>
              <span className="text-[7px] font-black text-gray-500 uppercase tracking-widest">{t.goalEarn}</span>
            </div>
            <div className="flex flex-col items-center gap-3">
              <div className="relative">
-               <div className={`w-5 h-5 rounded-sm rotate-45 border-2 transition-all duration-1000 ${stats.dailySaved ? 'bg-purple-500 border-purple-300 shadow-[0_0_25px_#a855f7]' : 'bg-transparent border-white/10'}`}></div>
+               <div className={`w-5 h-5 rounded-full border-2 transition-all duration-1000 ${stats.dailySaved ? 'bg-purple-500 border-purple-300 shadow-[0_0_25px_#a855f7]' : 'bg-transparent border-white/10'}`}></div>
              </div>
              <span className="text-[7px] font-black text-gray-500 uppercase tracking-widest">{t.goalSave}</span>
            </div>
@@ -382,7 +375,7 @@ const MartianCompanion: React.FC<MartianCompanionProps> = ({ stats, lang, onUpda
                 </div>
                 <div className="p-6 rounded-[2.5rem] bg-white/[0.03] border border-white/5">
                   <div className="text-[9px] text-gray-600 font-black uppercase mb-2 tracking-widest">Rank</div>
-                  <div className={`text-xl font-black mono ${(stats.rank || 158) <= 100 ? 'text-purple-400' : 'text-white'}`}>#{stats.rank || 158} / 100</div>
+                  <div className={`text-xl font-black mono ${(stats.rank || 582) <= 100 ? 'text-purple-400' : 'text-white'}`}>#{stats.rank || 582} / 100</div>
                 </div>
              </div>
              
