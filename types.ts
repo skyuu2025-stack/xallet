@@ -9,6 +9,26 @@ export enum AssetType {
 export type Language = 'en' | 'cn';
 export type Currency = 'USD' | 'CNY';
 
+export type MBTI = 'INTJ' | 'INTP' | 'ENTJ' | 'ENTP' | 'INFJ' | 'INFP' | 'ENFJ' | 'ENFP' | 'ISTJ' | 'ISFJ' | 'ESTJ' | 'ESFJ' | 'ISTP' | 'ISFP' | 'ESTP' | 'ESFP';
+export type UserGender = 'male' | 'female';
+
+export interface WardrobeItem {
+  id: string;
+  name: { en: string; cn: string };
+  price: number;
+  category: 'head' | 'body' | 'legs' | 'accessory';
+  svgSnippet: string; // Dynamic SVG part to overlay
+}
+
+export interface UserStats {
+  gender: UserGender;
+  personality: MBTI;
+  tokens: number;
+  ownedItemIds: string[];
+  equippedItemIds: string[];
+  rank?: number; // Platform ranking
+}
+
 export interface Asset {
   id: string;
   name: string;

@@ -1,5 +1,5 @@
 
-import { Asset, AssetType } from './types';
+import { Asset, AssetType, WardrobeItem } from './types';
 
 export const INITIAL_ASSETS: Asset[] = [
   { id: '1', name: 'Bitcoin', symbol: 'BTC', type: AssetType.CRYPTO, amount: 0.42, price: 92450.21, change24h: 2.45, icon: '₿' },
@@ -10,6 +10,26 @@ export const INITIAL_ASSETS: Asset[] = [
 ];
 
 export const EXCHANGE_RATE_USD_TO_CNY = 7.24;
+
+export const WARDROBE_ITEMS: WardrobeItem[] = [
+  // Head
+  { id: 'h1', category: 'head', price: 50, name: { en: 'Neural Link', cn: '神经连接环' }, svgSnippet: `<circle cx="12" cy="7" r="5" stroke="cyan" stroke-width="0.3" fill="none" stroke-dasharray="1 1" />` },
+  { id: 'h2', category: 'head', price: 120, name: { en: 'Cyber Visor', cn: '赛博面罩' }, svgSnippet: `<rect x="7" y="9" width="10" height="2" fill="rgba(0,255,255,0.4)" rx="1" stroke="cyan" stroke-width="0.2" />` },
+  { id: 'h3', category: 'head', price: 500, name: { en: 'Martian Crown', cn: '火星之冠' }, svgSnippet: `<path d="M8 8 L10 6 L12 8 L14 6 L16 8" fill="none" stroke="gold" stroke-width="0.5" />` },
+  
+  // Body
+  { id: 'b1', category: 'body', price: 80, name: { en: 'Void Cloak', cn: '虚空斗篷' }, svgSnippet: `<path d="M6 12 L12 20 L18 12 Q12 10 6 12" fill="rgba(100,50,255,0.3)" stroke="white" stroke-width="0.1"/>` },
+  { id: 'b2', category: 'body', price: 300, name: { en: 'Ag Battle Suit', cn: '白银战甲' }, svgSnippet: `<path d="M7 11 Q12 9 17 11 L18 17 Q12 19 6 17 Z" fill="rgba(192,192,192,0.6)" stroke="white" stroke-width="0.5"/>` },
+  { id: 'b3', category: 'body', price: 1000, name: { en: 'Nebula Kimono', cn: '星云霓裳' }, svgSnippet: `<path d="M5 11 L19 11 L17 21 L7 21 Z" fill="rgba(255,100,250,0.2)" stroke="pink" stroke-width="0.3"/>` },
+  
+  // Legs
+  { id: 'l1', category: 'legs', price: 150, name: { en: 'Gravity Boots', cn: '重力靴' }, svgSnippet: `<rect x="8" y="19" width="3" height="2" rx="1" fill="gray" /><rect x="13" y="19" width="3" height="2" rx="1" fill="gray" />` },
+  { id: 'l2', category: 'legs', price: 400, name: { en: 'Plasma Trousers', cn: '等离子长裤' }, svgSnippet: `<path d="M9 17 L8 22 M15 17 L16 22" stroke="cyan" stroke-width="2" stroke-linecap="round" opacity="0.5" />` },
+
+  // Accessory
+  { id: 'a1', category: 'accessory', price: 30, name: { en: 'Aura Ring', cn: '灵气光环' }, svgSnippet: `<ellipse cx="12" cy="20" rx="8" ry="2" stroke="gold" stroke-width="0.2" fill="none" opacity="0.6"/>` },
+  { id: 'a2', category: 'accessory', price: 1500, name: { en: 'Quantum Wings', cn: '量子之翼' }, svgSnippet: `<path d="M6 12 Q0 6 6 0 M18 12 Q24 6 18 0" fill="none" stroke="cyan" stroke-width="0.5" opacity="0.4" />` },
+];
 
 export const THEME_COLORS = {
   bg: '#0d0d0f',
@@ -59,6 +79,24 @@ export const TRANSLATIONS = {
     silverInsight: 'Silver Insight',
     currency: 'Currency',
     dailyMartian: 'Daily Martian',
+    companion: {
+      title: 'Neural Companion',
+      tokens: 'Martian Credits',
+      wardrobe: 'Wardrobe Pro',
+      buy: 'Acquire',
+      equipped: 'Equipped',
+      equip: 'Equip',
+      notEnough: 'Insufficient Credits',
+      mbtiPrompt: 'Select your Core Type (MBTI)',
+      genderPrompt: 'Identify your Signal',
+      male: 'Male',
+      female: 'Female',
+      ranking: 'Neural Rank',
+      milestone: 'Physical TEE Milestone',
+      milestoneDesc: 'Achieve 10,000 MC & Top 100 to unlock a custom physical Martian TEE for your companion.',
+      teeUnlocked: 'TEE UNLOCKED!',
+      claimTee: 'Claim Physical TEE'
+    },
     imageEditor: {
       title: 'Neural Studio Pro',
       modeGen: 'Generate',
@@ -130,6 +168,24 @@ export const TRANSLATIONS = {
     silverInsight: '白银洞察',
     currency: '币种',
     dailyMartian: '每日火星语',
+    companion: {
+      title: '火星同伴',
+      tokens: '火星点券',
+      wardrobe: '高级衣橱',
+      buy: '购买',
+      equipped: '已穿戴',
+      equip: '穿戴',
+      notEnough: '点券不足',
+      mbtiPrompt: '选择您的性格核 (MBTI)',
+      genderPrompt: '识别您的信号 (性别)',
+      male: '男性',
+      female: '女性',
+      ranking: '神经排名',
+      milestone: '物理 TEE 里程碑',
+      milestoneDesc: '积攒 10,000 点券并进入全站前 100，即可获赠为您定制的实体火星 TEE。',
+      teeUnlocked: '定制 TEE 已解锁！',
+      claimTee: '领取实体 TEE'
+    },
     imageEditor: {
       title: '影像工作室 Pro',
       modeGen: '创意生成',
