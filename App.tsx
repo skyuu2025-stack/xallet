@@ -20,7 +20,6 @@ const App: React.FC = () => {
   const [showPricing, setShowPricing] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   
-  // Martian Stats State
   const [userStats, setUserStats] = useState<UserStats>(() => {
     const saved = localStorage.getItem('xallet_user_stats');
     const today = new Date().toISOString().split('T')[0];
@@ -74,7 +73,6 @@ const App: React.FC = () => {
 
   const handlePlanConfirmed = () => {
     setUserStats(prev => ({ ...prev, dailySaved: true }));
-    // Success notification and jump back to dashboard to see results
     setActiveTab('home');
     alert(lang === 'cn' ? '每日攒钱计划已同步！火星同伴已记录您的理财姿态。' : 'Daily saving plan synced! Your companion noted your discipline.');
   };
@@ -94,10 +92,10 @@ const App: React.FC = () => {
       id: 'home', 
       label: t.home, 
       icon: (active: boolean) => (
-        <svg className={`w-8 h-8 ${active ? 'text-white' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <circle cx="12" cy="12" r="9" strokeOpacity="0.2" />
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" strokeOpacity="0.5" />
-          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+        <svg className={`w-7 h-7 ${active ? 'text-white' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 2L4 7v10l8 5 8-5V7l-8-5z" strokeOpacity="0.3" />
+          <circle cx="12" cy="12" r="3" fill={active ? "white" : "none"} stroke="currentColor" />
+          <path d="M12 8v1M12 15v1M8 12h1M15 12h1" strokeOpacity="0.6" />
         </svg>
       )
     },
@@ -105,9 +103,10 @@ const App: React.FC = () => {
       id: 'ai', 
       label: 'AI', 
       icon: (active: boolean) => (
-        <svg className={`w-8 h-8 ${active ? 'text-blue-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2L4.5 9L4.5 15L12 22L19.5 15L19.5 9L12 2Z" strokeOpacity="0.3" />
-          <circle cx="12" cy="11" r="1" fill="currentColor" />
+        <svg className={`w-7 h-7 ${active ? 'text-blue-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 3v4m0 10v4M3 12h4m10 0h4" strokeOpacity="0.4" />
+          <path d="M12 8l-4 4 4 4 4-4-4-4z" fill={active ? "currentColor" : "none"} stroke="currentColor" />
+          <path d="M12 11l2-2m-2 2l-2 2" stroke="white" strokeWidth="0.5" opacity="0.8" />
         </svg>
       )
     },
@@ -115,9 +114,10 @@ const App: React.FC = () => {
       id: 'studio', 
       label: t.studio, 
       icon: (active: boolean) => (
-        <svg className={`w-8 h-8 ${active ? 'text-purple-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <rect x="3" y="6" width="18" height="12" rx="2" strokeOpacity="0.3" />
-          <circle cx="12" cy="12" r="3.5" strokeWidth="2" />
+        <svg className={`w-7 h-7 ${active ? 'text-purple-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <circle cx="12" cy="12" r="6" strokeDasharray="2 2" strokeOpacity="0.5" />
+          <circle cx="12" cy="12" r="2.5" fill={active ? "currentColor" : "none"} stroke="currentColor" />
+          <path d="M12 4v2m0 12v2M4 12h2m12 0h2" strokeOpacity="0.8" />
         </svg>
       )
     },
@@ -125,8 +125,10 @@ const App: React.FC = () => {
       id: 'tools', 
       label: t.plan, 
       icon: (active: boolean) => (
-        <svg className={`w-8 h-8 ${active ? 'text-green-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M4 20l4-6l3 3l6-10" strokeWidth="2.5" strokeLinecap="round" />
+        <svg className={`w-7 h-7 ${active ? 'text-green-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M4 20l4-4 4 4 8-12" strokeWidth="2" strokeLinecap="round" />
+          <path d="M18 10l2-2-2-2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="4" cy="20" r="1" fill="currentColor" />
         </svg>
       )
     },
@@ -134,8 +136,10 @@ const App: React.FC = () => {
       id: 'assets', 
       label: t.wallet, 
       icon: (active: boolean) => (
-        <svg className={`w-8 h-8 ${active ? 'text-yellow-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <rect x="7" y="7" width="10" height="10" rx="1" strokeWidth="2" />
+        <svg className={`w-7 h-7 ${active ? 'text-yellow-400' : 'text-gray-500'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <rect x="6" y="6" width="12" height="12" rx="1" strokeOpacity="0.3" />
+          <path d="M10 10h4v4h-4z" fill={active ? "currentColor" : "none"} stroke="currentColor" />
+          <path d="M12 4v2M12 18v2M4 12h2M18 12h2" strokeOpacity="0.6" />
         </svg>
       )
     }
@@ -143,7 +147,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#08080a] text-white font-sans selection:bg-blue-500/30 overflow-hidden flex flex-col relative">
-      {/* Immersive Sci-Fi Background Layer */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-black"></div>
         <div className="absolute inset-0 breathing-grid-sci-fi"></div>
@@ -175,18 +178,17 @@ const App: React.FC = () => {
             {lang === 'en' ? 'CN' : 'EN'}
           </button>
           
-          {/* Enhanced Martian Profile Button */}
           <button 
             onClick={() => setShowProfileSetup(true)} 
-            className="w-9 h-9 rounded-full bg-black/40 border border-blue-500/40 flex items-center justify-center transition-all hover:border-blue-400 hover:shadow-[0_0_15px_rgba(0,98,255,0.4)] active:scale-90 relative overflow-hidden group shadow-[0_0_8px_rgba(0,0,0,0.5)]"
+            className="w-9 h-9 rounded-full bg-black/40 border border-blue-500/40 flex items-center justify-center transition-all hover:border-blue-400 hover:shadow-[0_0_15px_rgba(0,98,255,0.5)] active:scale-90 relative overflow-hidden group shadow-[0_0_8px_rgba(0,0,0,0.5)]"
           >
             <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <svg 
-              className="w-[18px] h-[18px] text-blue-500 drop-shadow-[0_0_5px_rgba(0,98,255,0.6)]" 
+              className="w-[22px] h-[22px] text-blue-500 drop-shadow-[0_0_8px_rgba(0,98,255,0.7)]" 
               viewBox="0 0 24 24" 
               fill="currentColor"
             >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              <path d="M12 2C7.58 2 4 5.58 4 10c0 4.14 3 9 8 12 5-3 8-7.86 8-12 0-4.42-3.58-8-8-8zm-3 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
             </svg>
             <div className="absolute inset-0 border border-blue-500/10 rounded-full animate-pulse pointer-events-none"></div>
           </button>
@@ -232,10 +234,9 @@ const App: React.FC = () => {
         />
       )}
 
-      <main className="flex-1 overflow-y-auto max-w-md mx-auto w-full relative z-10 pb-24 px-4 sm:px-0">
+      <main className="flex-1 overflow-y-auto max-w-md mx-auto w-full relative z-10 pb-32 px-4 sm:px-0">
         {activeTab === 'home' && (
           <div className="py-4 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Balance Card */}
             <div className="relative p-7 rounded-[2.5rem] bg-[#121214]/60 border border-white/10 overflow-hidden shadow-2xl backdrop-blur-3xl group">
                <div className="absolute top-0 right-0 p-4 opacity-10">
                  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
@@ -265,7 +266,6 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* Silver Market Widget */}
             <div 
               onClick={() => setActiveTab('ai')}
               className="relative p-6 rounded-[2.25rem] bg-[#0c0c0e]/80 border border-white/10 overflow-hidden group cursor-pointer active:scale-[0.98] transition-all backdrop-blur-2xl"
@@ -333,28 +333,35 @@ const App: React.FC = () => {
         {activeTab === 'studio' && <ImageEditor lang={lang} onExpenseAdded={handleExpenseAdded} onIncomeAdded={handleIncomeAdded} />}
       </main>
 
-      {/* Navigation Ring */}
-      <div className="fixed bottom-6 left-0 right-0 z-[100] flex justify-center pointer-events-none">
-        <div className="relative flex items-center justify-center pointer-events-auto">
+      {/* Navigation Ring Fixed Position - Moved higher to avoid cutoff */}
+      <div className="fixed bottom-24 left-0 right-0 z-[100] flex justify-center pointer-events-none">
+        <div className="relative w-20 h-20 flex items-center justify-center pointer-events-auto">
+          {/* Menu Items arranged in a ring */}
           {isNavOpen && (
-            <div className="absolute bottom-20 w-80 h-80 animate-in zoom-in-50 duration-300 pointer-events-none">
-              <div className="relative w-full h-full">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="relative w-0 h-0">
                 {navItems.map((item, idx) => {
                   const angle = (idx * (360 / navItems.length)) - 90;
-                  const radius = 120; // Increased radius for larger buttons
-                  const x = Math.cos(angle * (Math.PI / 180)) * radius;
-                  const y = Math.sin(angle * (Math.PI / 180)) * radius;
+                  const radius = 105; // Slightly tighter for better screen fit
+                  const rad = angle * (Math.PI / 180);
+                  const x = Math.cos(rad) * radius;
+                  const y = Math.sin(rad) * radius;
                   const isActive = activeTab === item.id;
                   
                   return (
                     <button
                       key={item.id}
                       onClick={() => { setActiveTab(item.id as any); setIsNavOpen(false); }}
-                      className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-[#121214] border rounded-full flex flex-col items-center justify-center pointer-events-auto shadow-2xl transition-all active:scale-90 ${isActive ? 'border-blue-500 shadow-[0_0_25px_rgba(0,98,255,0.5)] bg-blue-500/10' : 'border-white/10 hover:border-white/30 hover:bg-white/5'}`}
-                      style={{ transform: `translate(${x}px, ${y}px)` }}
+                      className={`absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#121214]/90 backdrop-blur-2xl border rounded-full flex flex-col items-center justify-center pointer-events-auto shadow-[0_15px_35px_rgba(0,0,0,0.6)] transition-all animate-in zoom-in-50 duration-300 active:scale-90 ${isActive ? 'border-blue-500 shadow-[0_0_25px_rgba(0,98,255,0.4)] bg-blue-500/10' : 'border-white/10 hover:border-white/30 hover:bg-white/5'}`}
+                      style={{ 
+                        left: `${x}px`, 
+                        top: `${y}px`,
+                        transitionDelay: `${idx * 40}ms`
+                      }}
                     >
                       {item.icon(isActive)}
                       <span className={`text-[8px] font-black uppercase tracking-tighter mt-1 ${isActive ? 'text-white' : 'text-gray-500'}`}>{item.label}</span>
+                      {isActive && <div className="absolute inset-0 rounded-full border border-blue-500/20 animate-pulse pointer-events-none"></div>}
                     </button>
                   );
                 })}
@@ -362,24 +369,31 @@ const App: React.FC = () => {
             </div>
           )}
 
+          {/* Center Toggle Button */}
           <button 
             onClick={() => setIsNavOpen(!isNavOpen)}
-            className={`w-20 h-20 rounded-full bg-gradient-to-b from-[#1a1a1c] to-[#08080a] border border-white/15 flex items-center justify-center shadow-[0_15px_45px_rgba(0,0,0,0.8)] transition-all duration-300 active:scale-95 group relative ${isNavOpen ? 'rotate-45' : ''}`}
+            className={`w-20 h-20 rounded-full bg-gradient-to-b from-[#1a1a1c] to-[#08080a] border border-white/15 flex items-center justify-center shadow-[0_15px_45px_rgba(0,0,0,0.8)] transition-all duration-300 active:scale-95 group relative z-50 ${isNavOpen ? 'scale-90 border-blue-500/50' : ''}`}
           >
-            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02]">
-              <div className={`w-3 h-3 rounded-full transition-all ${isNavOpen ? 'bg-blue-400 animate-ping' : 'bg-blue-600 shadow-[0_0_15px_#0062ff]'}`}></div>
+            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] relative">
+              {isNavOpen ? (
+                // Close/Back icon
+                <svg className="w-7 h-7 text-blue-400 animate-in fade-in zoom-in duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              ) : (
+                // Core/Home icon
+                <>
+                  <div className="w-3 h-3 rounded-full bg-blue-600 shadow-[0_0_15px_#0062ff] animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full border border-blue-500/10 animate-ping"></div>
+                </>
+              )}
             </div>
-            {!isNavOpen && (
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                {navItems.find(n => n.id === activeTab)?.icon(true)}
-              </div>
-            )}
           </button>
         </div>
       </div>
 
       {isNavOpen && (
-        <div className="fixed inset-0 z-[90] bg-black/70 backdrop-blur-xl animate-in fade-in" onClick={() => setIsNavOpen(false)} />
+        <div className="fixed inset-0 z-[90] bg-black/80 backdrop-blur-xl animate-in fade-in" onClick={() => setIsNavOpen(false)} />
       )}
 
       <style>{`

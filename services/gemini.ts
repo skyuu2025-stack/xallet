@@ -5,6 +5,15 @@ import { Currency } from "../types";
 export class GeminiService {
   constructor() {}
 
+  private handleError(error: any) {
+    console.error("Gemini API Error:", error);
+    const message = error?.message || String(error);
+    if (message.includes("Requested entity was not found") || message.includes("API key not found")) {
+      throw new Error("KEY_RESET");
+    }
+    throw error;
+  }
+
   async analyzeFinance(prompt: string, lang: 'en' | 'cn' = 'en', currency: Currency = 'USD') {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
@@ -29,8 +38,7 @@ export class GeminiService {
       });
       return response.text;
     } catch (error: any) {
-      console.error("Gemini Error:", error);
-      if (error.message?.includes("Requested entity was not found")) {
+      if (error?.message?.includes("Requested entity was not found")) {
         return "KEY_RESET";
       }
       return lang === 'cn' ? "抱歉，分析市场时出现错误。" : "Sorry, error analyzing market data.";
@@ -71,8 +79,7 @@ export class GeminiService {
 
       return JSON.parse(response.text || '{}');
     } catch (error) {
-      console.error("Receipt Analysis Error:", error);
-      throw error;
+      this.handleError(error);
     }
   }
 
@@ -110,8 +117,7 @@ export class GeminiService {
 
       return JSON.parse(response.text || '{}');
     } catch (error) {
-      console.error("Income Analysis Error:", error);
-      throw error;
+      this.handleError(error);
     }
   }
 
@@ -142,8 +148,7 @@ export class GeminiService {
       }
       return null;
     } catch (error) {
-      console.error("Image Edit Error:", error);
-      throw error;
+      this.handleError(error);
     }
   }
 
@@ -174,11 +179,7 @@ export class GeminiService {
       }
       return null;
     } catch (error: any) {
-      console.error("Image Gen Error:", error);
-      if (error.message?.includes("Requested entity was not found")) {
-        throw new Error("KEY_RESET");
-      }
-      throw error;
+      this.handleError(error);
     }
   }
 }

@@ -19,6 +19,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
   const [isProcessing, setIsProcessing] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [scanSuccess, setScanSuccess] = useState(false);
+  const [lastScanResult, setLastScanResult] = useState<any>(null);
   
   // Camera States
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -70,6 +71,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
         setMimeType('image/jpeg');
         setResultImage(null);
         setScanSuccess(false);
+        setLastScanResult(null);
         stopCamera();
       }
     }
@@ -84,6 +86,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
         setSelectedImage(reader.result as string);
         setResultImage(null);
         setScanSuccess(false);
+        setLastScanResult(null);
       };
       reader.readAsDataURL(file);
     }
@@ -95,6 +98,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
 
     setIsProcessing(true);
     setScanSuccess(false);
+    setLastScanResult(null);
     try {
       if (mode === 'gen') {
         const hasKey = await (window as any).aistudio.hasSelectedApiKey();
@@ -115,35 +119,43 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
       } else if (mode === 'scan') {
         const base64Data = selectedImage!.split(',')[1];
         const data = await geminiService.analyzeReceipt(base64Data, mimeType);
-        if (data && onExpenseAdded) {
-          onExpenseAdded({
-            id: Date.now().toString(),
-            merchant: data.merchant || 'X-Registry Merchant',
-            amount: parseFloat(data.amount) || 0,
-            date: data.date || new Date().toISOString().split('T')[0],
-            category: data.category || 'Operations'
-          });
+        if (data) {
+          setLastScanResult(data);
+          if (onExpenseAdded) {
+            onExpenseAdded({
+              id: Date.now().toString(),
+              merchant: data.merchant || 'X-Registry Merchant',
+              amount: parseFloat(data.amount) || 0,
+              date: data.date || new Date().toISOString().split('T')[0],
+              category: data.category || 'Operations'
+            });
+          }
           setScanSuccess(true);
         }
       } else if (mode === 'income') {
         const base64Data = selectedImage!.split(',')[1];
         const data = await geminiService.analyzeIncome(base64Data, mimeType);
-        if (data && onIncomeAdded) {
-          onIncomeAdded({
-            id: Date.now().toString(),
-            source: data.source || 'Capital Payer',
-            amount: parseFloat(data.amount) || 0,
-            date: data.date || new Date().toISOString().split('T')[0],
-            category: data.category || 'Revenue'
-          });
+        if (data) {
+          setLastScanResult(data);
+          if (onIncomeAdded) {
+            onIncomeAdded({
+              id: Date.now().toString(),
+              source: data.source || 'Capital Payer',
+              amount: parseFloat(data.amount) || 0,
+              date: data.date || new Date().toISOString().split('T')[0],
+              category: data.category || 'Revenue'
+            });
+          }
           setScanSuccess(true);
         }
       }
     } catch (error: any) {
       if (error.message === "KEY_RESET") {
+        alert(lang === 'cn' ? '检测到 API 密钥失效或无权限，请重新选择有效的付费项目密钥。' : 'API Key invalid or no permission. Please re-select a valid paid project key.');
         await (window as any).aistudio.openSelectKey();
       } else {
-        alert(lang === 'cn' ? '神经网络连接中断，请重试。' : 'Neural connection interrupted. Please try again.');
+        const errMsg = error?.message || String(error);
+        alert(lang === 'cn' ? `神经网络处理失败: ${errMsg}` : `Neural processing failed: ${errMsg}`);
       }
     } finally {
       setIsProcessing(false);
@@ -166,8 +178,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
         {(['gen', 'scan', 'income'] as const).map((m) => (
           <button 
             key={m}
-            onClick={() => { setMode(m); setResultImage(null); setScanSuccess(false); setSelectedImage(null); }}
-            className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300 relative overflow-hidden ${mode === m ? 'bg-blue-600/20 border border-blue-500/50 text-white shadow-[0_0_20px_rgba(0,98,255,0.2)]' : 'text-gray-500 hover:text-gray-300'}`}
+            onClick={() => { setMode(m); setResultImage(null); setScanSuccess(false); setSelectedImage(null); setLastScanResult(null); }}
+            className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300 relative overflow-hidden ${mode === m ? 'bg-blue-600/20 border border-blue-500/50 text-white shadow-[0_0_20px_rgba(34,211,238,0.2)]' : 'text-gray-500 hover:text-gray-300'}`}
           >
             {mode === m && <div className="absolute inset-0 bg-blue-400/5 animate-pulse"></div>}
             <span className="relative z-10">{m === 'gen' ? t.modeGen : m === 'scan' ? t.modeScan : t.modeIncome}</span>
@@ -185,11 +197,11 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,180,216,0.1)_0%,transparent_70%)]"></div>
           </div>
 
-          {/* Viewfinder Corners */}
-          <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-blue-500/40 rounded-tl-2xl"></div>
-          <div className="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-blue-500/40 rounded-tr-2xl"></div>
-          <div className="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-blue-500/40 rounded-bl-2xl"></div>
-          <div className="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-blue-500/40 rounded-br-2xl"></div>
+          {/* Viewfinder Corners (UI Decor) */}
+          <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-blue-500/60 rounded-tl-2xl z-20"></div>
+          <div className="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-blue-500/60 rounded-tr-2xl z-20"></div>
+          <div className="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-blue-500/60 rounded-bl-2xl z-20"></div>
+          <div className="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-blue-500/60 rounded-br-2xl z-20"></div>
 
           {/* Neural Scanline Effect */}
           <div className="absolute inset-0 pointer-events-none z-10 opacity-30 studio-scanline"></div>
@@ -220,26 +232,30 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
               </div>
             </div>
           ) : resultImage ? (
-            <div className="relative w-full h-full bg-black/40">
-              <img src={resultImage} alt="Neural Result" className="w-full h-full object-contain animate-in fade-in zoom-in-95 duration-700" />
-              <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center pointer-events-none">
+            <div className="relative w-full h-full p-12">
+              <div className="w-full h-full rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/5 relative bg-black/40">
+                <img src={resultImage} alt="Neural Result" className="w-full h-full object-contain animate-in fade-in zoom-in-95 duration-700" />
+              </div>
+              <div className="absolute bottom-16 left-12 right-12 flex justify-between items-center pointer-events-none">
                  <span className="px-3 py-1 bg-cyan-600/80 backdrop-blur-md rounded-full text-[8px] font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,255,0.2)] border border-white/10">PRO OUTPUT SYNC</span>
               </div>
               <button 
                 onClick={() => setResultImage(null)}
-                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/60 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 pointer-events-auto active:scale-90 shadow-2xl"
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 pointer-events-auto active:scale-90 shadow-2xl hover:bg-red-500/20 transition-all"
               >
-                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
             </div>
           ) : selectedImage ? (
-            <div className="relative w-full h-full bg-black/20">
-              <img src={selectedImage} alt="Input Source" className="w-full h-full object-contain" />
+            <div className="relative w-full h-full p-12">
+              <div className="w-full h-full rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/10 relative">
+                <img src={selectedImage} alt="Input Source" className="w-full h-full object-contain" />
+              </div>
               <button 
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/60 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 active:scale-90 shadow-2xl"
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 active:scale-90 shadow-2xl hover:bg-red-500/20 transition-all"
               >
-                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
             </div>
           ) : (
@@ -292,13 +308,43 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ lang, onExpenseAdded, onIncom
             </div>
           )}
 
-          {scanSuccess && !isProcessing && mode !== 'gen' && (
-            <div className="absolute inset-0 bg-cyan-500/10 backdrop-blur-3xl flex flex-col items-center justify-center z-30 p-6 text-center animate-in fade-in duration-700">
-               <div className="w-20 h-20 rounded-full bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center mb-6 shadow-[0_0_50px_rgba(0,180,216,0.4)]">
-                 <svg className="w-10 h-10 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M20 6L9 17l-5-5"/></svg>
-               </div>
-               <p className="text-[15px] font-black text-white tracking-widest uppercase">{mode === 'income' ? t.incomeSuccess : t.scanSuccess}</p>
-               <button onClick={() => setScanSuccess(false)} className="mt-8 px-6 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-black text-cyan-400 hover:bg-white/10 transition-all uppercase tracking-widest">Acknowledge</button>
+          {scanSuccess && !isProcessing && (
+            <div className="absolute inset-0 bg-[#08080a]/95 backdrop-blur-3xl flex flex-col items-center justify-center z-30 p-6 text-center animate-in fade-in zoom-in-95 duration-700">
+               {mode !== 'gen' ? (
+                 <>
+                   <div className="w-20 h-20 rounded-full bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center mb-6 shadow-[0_0_50px_rgba(0,180,216,0.4)]">
+                     <svg className="w-10 h-10 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M20 6L9 17l-5-5"/></svg>
+                   </div>
+                   <p className="text-[15px] font-black text-white tracking-widest uppercase mb-4">{mode === 'income' ? t.incomeSuccess : t.scanSuccess}</p>
+                   
+                   {lastScanResult && (
+                     <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-3 w-full max-w-xs text-left animate-in slide-in-from-bottom-2 duration-500">
+                       <div className="flex justify-between items-center">
+                         <span className="text-[9px] text-gray-500 font-black uppercase tracking-widest">{mode === 'income' ? 'Source' : 'Merchant'}</span>
+                         <span className="text-[11px] text-white font-black">{lastScanResult.merchant || lastScanResult.source}</span>
+                       </div>
+                       <div className="flex justify-between items-center">
+                         <span className="text-[9px] text-gray-500 font-black uppercase tracking-widest">Amount</span>
+                         <span className="text-[14px] text-cyan-400 font-black mono">${lastScanResult.amount}</span>
+                       </div>
+                       <div className="flex justify-between items-center">
+                         <span className="text-[9px] text-gray-500 font-black uppercase tracking-widest">Date</span>
+                         <span className="text-[11px] text-gray-300 font-black">{lastScanResult.date}</span>
+                       </div>
+                     </div>
+                   )}
+                   
+                   <button onClick={() => {setScanSuccess(false); setLastScanResult(null); setSelectedImage(null);}} className="mt-8 px-10 py-3 bg-cyan-600 text-white rounded-full text-[10px] font-black hover:bg-cyan-500 transition-all uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(0,180,216,0.4)]">Acknowledge</button>
+                 </>
+               ) : (
+                 <div className="relative w-full h-full flex flex-col items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-blue-500/20 border border-blue-400/50 flex items-center justify-center mb-6">
+                      <svg className="w-10 h-10 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                    <p className="text-[15px] font-black text-white tracking-widest uppercase">Creative Generation Synced</p>
+                    <button onClick={() => setScanSuccess(false)} className="mt-8 px-10 py-3 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest">Close</button>
+                 </div>
+               )}
             </div>
           )}
         </div>
