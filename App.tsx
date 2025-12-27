@@ -157,24 +157,26 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-white font-sans selection:bg-blue-500/30 overflow-hidden flex flex-col">
-      {/* Dynamic Background */}
-      <div 
-        className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000"
-        style={{
-          backgroundImage: `url("https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?q=80&w=2000&auto=format&fit=crop")`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.1,
-          filter: 'grayscale(100%) contrast(150%) brightness(50%)',
-        }}
-      ></div>
-      <div className="fixed inset-0 z-0 pointer-events-none bg-gradient-to-b from-transparent via-[#08080a]/60 to-[#08080a]"></div>
+    <div className="min-h-screen bg-[#08080a] text-white font-sans selection:bg-blue-500/30 overflow-hidden flex flex-col relative">
+      {/* GLOBAL SCI-FI BACKGROUND LAYERS */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Breathing Neural Grid */}
+        <div className="absolute inset-0 breathing-grid opacity-30"></div>
+        
+        {/* Scanline Effect */}
+        <div className="absolute inset-0 scanline-overlay opacity-10"></div>
+        
+        {/* Dynamic Atmosphere */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,180,216,0.05)_0%,transparent_80%)]"></div>
+        
+        {/* Darkened Base Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08080a] via-transparent to-[#08080a]"></div>
+      </div>
 
-      <header className="relative h-14 bg-[#08080a]/80 backdrop-blur-xl border-b border-white/5 z-[60] flex items-center justify-between px-4 shrink-0">
+      <header className="relative h-14 bg-[#08080a]/60 backdrop-blur-2xl border-b border-white/5 z-[60] flex items-center justify-between px-4 shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div className="flex items-center gap-3">
           <div className="relative w-10 h-10 flex items-center justify-center">
-            <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full animate-pulse"></div>
+            <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-full animate-pulse"></div>
             <svg className="w-7 h-7 relative z-10 drop-shadow-[0_0_12px_rgba(0,98,255,0.8)]" viewBox="0 0 24 24" fill="none">
                <circle cx="12" cy="12" r="8" stroke="#0062ff" strokeWidth="1" strokeDasharray="2 2" />
                <circle cx="12" cy="12" r="4" fill="#0062ff" />
@@ -207,15 +209,6 @@ const App: React.FC = () => {
 
       {showProfileSetup && (
         <div className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-6">
-          {/* Enhanced Breathing Blue Grid Background */}
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-50">
-            <div className="absolute inset-0 breathing-grid"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,180,216,0.15)_0%,transparent_75%)]"></div>
-            <div className="absolute inset-0 scanline-overlay"></div>
-            {/* Pulsing Core Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-cyan-500/5 blur-[120px] rounded-full animate-pulse"></div>
-          </div>
-
           <div className="w-full max-w-sm bg-[#0c0c0e]/95 border border-cyan-500/30 rounded-[3.5rem] p-10 space-y-10 shadow-[0_0_120px_rgba(0,180,216,0.25)] animate-in zoom-in-95 duration-500 relative z-10 backdrop-blur-2xl">
             {/* Sci-fi Corner Elements */}
             <div className="absolute top-6 left-6 w-12 h-12 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-[2rem]"></div>
@@ -374,9 +367,7 @@ const App: React.FC = () => {
               </div>
               <div className="text-[8px] font-black text-blue-400 uppercase border border-blue-400/20 px-2 py-1 rounded-full">Secure Cold-Sync</div>
             </div>
-            <div className="bg-[#121214]/80 backdrop-blur-3xl p-7 rounded-[3rem] border border-white/10 shadow-2xl">
-              <AssetList assets={assets} currency={currency} />
-            </div>
+            <AssetList assets={assets} currency={currency} />
           </div>
         )}
         {activeTab === 'studio' && <ImageEditor lang={lang} onExpenseAdded={handleExpenseAdded} onIncomeAdded={handleIncomeAdded} />}
@@ -443,30 +434,34 @@ const App: React.FC = () => {
         .h-20 { height: 5rem; }
         
         .breathing-grid {
-          background-size: 35px 35px;
+          position: absolute;
+          inset: 0;
+          background-size: 40px 40px;
           background-image:
-            linear-gradient(to right, rgba(0, 212, 255, 0.2) 1.5px, transparent 1.5px),
-            linear-gradient(to bottom, rgba(0, 212, 255, 0.2) 1.5px, transparent 1.5px);
-          animation: grid-pulse 6s ease-in-out infinite;
+            linear-gradient(to right, rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+          animation: global-grid-pulse 8s ease-in-out infinite;
         }
 
         .scanline-overlay {
+          position: absolute;
+          inset: 0;
           background: linear-gradient(
             to bottom,
             transparent,
-            rgba(0, 255, 255, 0.08) 50%,
+            rgba(0, 255, 255, 0.04) 50%,
             transparent 51%
           );
-          background-size: 100% 6px;
-          animation: scanline 5s linear infinite;
+          background-size: 100% 8px;
+          animation: global-scanline 6s linear infinite;
         }
 
-        @keyframes grid-pulse {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.06); }
+        @keyframes global-grid-pulse {
+          0%, 100% { opacity: 0.15; transform: scale(1) translateY(0); }
+          50% { opacity: 0.45; transform: scale(1.05) translateY(-5px); }
         }
 
-        @keyframes scanline {
+        @keyframes global-scanline {
           from { transform: translateY(-100%); }
           to { transform: translateY(100%); }
         }
