@@ -13,26 +13,26 @@ export const EXCHANGE_RATE_USD_TO_CNY = 7.24;
 
 export const WARDROBE_ITEMS: WardrobeItem[] = [
   // Head
-  { id: 'h1', category: 'head', price: 50, name: { en: 'Neural Link', cn: '神经连接环' }, svgSnippet: `<circle cx="12" cy="6" r="5" stroke="cyan" stroke-width="0.3" fill="none" stroke-dasharray="1 1" />` },
-  { id: 'h2', category: 'head', price: 120, name: { en: 'Cyber Visor', cn: '赛博面罩' }, svgSnippet: `<rect x="7" y="8" width="10" height="2.2" fill="rgba(0,255,255,0.4)" rx="1.1" stroke="cyan" stroke-width="0.2" />` },
-  { id: 'h3', category: 'head', price: 500, name: { en: 'Martian Crown', cn: '火星之冠' }, svgSnippet: `<path d="M8 6 L10 3 L12 6 L14 3 L16 6" fill="none" stroke="gold" stroke-width="0.8" stroke-linecap="round" />` },
+  { id: 'h1', category: 'head', price: 50, name: { en: 'Neural Ribbon', cn: '神经发带' }, svgSnippet: `<path d="M7 3 Q12 1 17 3" fill="none" stroke="cyan" stroke-width="0.5" stroke-dasharray="1 1" />` },
+  { id: 'h2', category: 'head', price: 120, name: { en: 'Anime Visor', cn: '萌系战术目镜' }, svgSnippet: `<path d="M8 8.5 Q12 7.5 16 8.5 L16 9.5 Q12 10.5 8 9.5 Z" fill="rgba(0,255,255,0.4)" stroke="cyan" stroke-width="0.1" />` },
+  { id: 'h3', category: 'head', price: 500, name: { en: 'Martian Princess Crown', cn: '火星公主之冠' }, svgSnippet: `<path d="M9 5 L10 2 L12 4 L14 2 L15 5" fill="none" stroke="gold" stroke-width="0.5" stroke-linecap="round" />` },
   
   // Body
-  { id: 'b1', category: 'body', price: 80, name: { en: 'Void Cloak', cn: '虚空斗篷' }, svgSnippet: `<path d="M5 11.5 L12 23 L19 11.5 Z" fill="rgba(100,50,255,0.2)" stroke="white" stroke-width="0.1"/>` },
-  { id: 'b2', category: 'body', price: 300, name: { en: 'Ag Battle Suit', cn: '白银战甲' }, svgSnippet: `<path d="M6 11.5 L18 11.5 L16 16 L8 16 Z" fill="rgba(192,192,192,0.6)" stroke="white" stroke-width="0.5"/>` },
-  { id: 'b3', category: 'body', price: 1000, name: { en: 'Nebula Kimono', cn: '星云霓裳' }, svgSnippet: `<path d="M4 11.5 L20 11.5 L16 22 L8 22 Z" fill="rgba(255,100,250,0.15)" stroke="pink" stroke-width="0.3"/>` },
+  { id: 'b1', category: 'body', price: 80, name: { en: 'Lace Void Cloak', cn: '蕾丝虚空斗篷' }, svgSnippet: `<path d="M5 12 Q12 24 19 12" fill="rgba(255,100,255,0.1)" stroke="white" stroke-width="0.1" stroke-dasharray="0.5 0.5"/>` },
+  { id: 'b2', category: 'body', price: 300, name: { en: 'Silver Sailor Suit', cn: '白银水手服' }, svgSnippet: `<path d="M8 11.5 L16 11.5 L15 14 L9 14 Z" fill="rgba(192,192,192,0.6)" stroke="white" stroke-width="0.3"/>` },
+  { id: 'b3', category: 'body', price: 1000, name: { en: 'Nebula Kimono', cn: '星云霓裳' }, svgSnippet: `<path d="M4 11.5 L20 11.5 L17 22 L7 22 Z" fill="rgba(255,100,250,0.15)" stroke="pink" stroke-width="0.2"/>` },
   
   // Legs
-  { id: 'l1', category: 'legs', price: 150, name: { en: 'Gravity Boots', cn: '重力靴' }, svgSnippet: `<rect x="8.5" y="20.5" width="2" height="1.5" rx="0.5" fill="gray" /><rect x="13.5" y="20.5" width="2" height="1.5" rx="0.5" fill="gray" />` },
-  { id: 'l2', category: 'legs', price: 400, name: { en: 'Plasma Trousers', cn: '等离子长裤' }, svgSnippet: `<path d="M10 21 L10 23 M14 21 L14 23" stroke="cyan" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />` },
+  { id: 'l1', category: 'legs', price: 150, name: { en: 'Zero-G Stockings', cn: '零重力长袜' }, svgSnippet: `<path d="M9.5 21 L9.5 23 M14.5 21 L14.5 23" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" />` },
+  { id: 'l2', category: 'legs', price: 400, name: { en: 'Cyber Boots', cn: '赛博厚底靴' }, svgSnippet: `<rect x="8.5" y="21" width="2.5" height="2" rx="0.5" fill="#222" /><rect x="13" y="21" width="2.5" height="2" rx="0.5" fill="#222" />` },
 
   // Accessory
-  { id: 'a1', category: 'accessory', price: 30, name: { en: 'Aura Ring', cn: '灵气光环' }, svgSnippet: `<ellipse cx="12" cy="18" rx="8" ry="1.5" stroke="gold" stroke-width="0.2" fill="none" opacity="0.6"/>` },
-  { id: 'a2', category: 'accessory', price: 1500, name: { en: 'Quantum Wings', cn: '量子之翼' }, svgSnippet: `<path d="M6 11 Q0 5 6 0 M18 11 Q24 5 18 0" fill="none" stroke="cyan" stroke-width="0.4" opacity="0.4" />` },
+  { id: 'a1', category: 'accessory', price: 30, name: { en: 'Moe Heart Aura', cn: '萌力心形光环' }, svgSnippet: `<path d="M12 18 Q10 16 8 18 Q6 20 12 23 Q18 20 16 18 Q14 16 12 18" fill="none" stroke="hotpink" stroke-width="0.2" opacity="0.6"/>` },
+  { id: 'a2', category: 'accessory', price: 1500, name: { en: 'Angel Wings', cn: '炽天使之翼' }, svgSnippet: `<path d="M6 10 Q-2 2 6 -2 M18 10 Q26 2 18 -2" fill="none" stroke="cyan" stroke-width="0.2" opacity="0.4" />` },
 
-  // Special Daily Items (isSpecial: true)
-  { id: 's1', category: 'accessory', price: 0, name: { en: 'Saver Star', cn: '储蓄之星' }, isSpecial: true, svgSnippet: `<path d="M12 16 L13 18 L15 18 L13.5 19 L14 21 L12 20 L10 21 L10.5 19 L9 18 L11 18 Z" fill="yellow" stroke="orange" stroke-width="0.1" />` },
-  { id: 's2', category: 'head', price: 0, name: { en: 'Earner Halo', cn: '致富光环' }, isSpecial: true, svgSnippet: `<ellipse cx="12" cy="3" rx="4" ry="0.8" stroke="cyan" stroke-width="0.4" fill="none" />` },
+  // Special Daily Items
+  { id: 's1', category: 'accessory', price: 0, name: { en: 'Saver Ribbon', cn: '攒钱少女缎带' }, isSpecial: true, svgSnippet: `<path d="M12 12 L14 14 M12 12 L10 14" stroke="yellow" stroke-width="0.5" />` },
+  { id: 's2', category: 'head', price: 0, name: { en: 'Earner Halo', cn: '致富天使环' }, isSpecial: true, svgSnippet: `<ellipse cx="12" cy="1" rx="3" ry="0.6" stroke="cyan" stroke-width="0.2" fill="none" />` },
 ];
 
 export const THEME_COLORS = {
@@ -47,13 +47,12 @@ export const THEME_COLORS = {
 };
 
 export const MARTIAN_QUOTES = [
-  { cn: "银色月光正在重构白天的秩序。", en: "Silver moonlight is refactoring the order of the day." },
-  { cn: "在2026的尘埃中，流动性就是生命。", en: "In the dust of 2026, liquidity is life." },
-  { cn: "神经连接已建立，正在下载未来的复利。", en: "Neural link established, downloading future compound interest." },
-  { cn: "白银是通往火星新秩序的唯一硬通货。", en: "Silver is the only hard currency to the new Martian order." },
-  { cn: "波动并非风险，而是认知的溢价。", en: "Volatility is not risk, but the premium of cognition." },
-  { cn: "不要在旧世界的废墟上建立你的财务堡垒。", en: "Don't build your financial fortress on the ruins of the old world." },
-  { cn: "每一个哈希值都承载着文明的重量。", en: "Every hash carries the weight of civilization." }
+  { cn: "要把白银攒起来，才能变成闪闪发光的火星少女哦！", en: "Save up your silver to become a sparkling Martian girl!" },
+  { cn: "欧尼酱，今天的资产配置也要元气满满呢！", en: "Onii-chan, today's asset allocation must be full of energy!" },
+  { cn: "即使是2026年的混乱，也挡不住理财少女的决心！", en: "Even the chaos of 2026 can't stop a financial girl's determination!" },
+  { cn: "流动性就像星星一样，抓住了就能照亮未来。", en: "Liquidity is like stars; catch them to light up the future." },
+  { cn: "波动性什么的，只要有爱（和AI）就能克服！", en: "Volatility can be overcome with love (and AI)!" },
+  { cn: "今天的复利，是写给明天的情书。", en: "Today's compound interest is a love letter to tomorrow." }
 ];
 
 export const TRANSLATIONS = {
@@ -73,6 +72,8 @@ export const TRANSLATIONS = {
     connect: 'Connect',
     trade: 'Trade',
     audit: '2026 AUDIT',
+    logout: 'Sever Link',
+    logoutConfirm: 'Are you sure you want to disconnect your neural profile?',
     allocationTitle: 'Capital Allocation Engine',
     aiRecommendation: 'AI Scientific Allocation Recommendation',
     whyThisRatio: 'Scientific Logic for 2026',
@@ -114,27 +115,27 @@ export const TRANSLATIONS = {
       current: 'Current Plan'
     },
     companion: {
-      title: 'Neural Companion',
+      title: 'Martian Girl',
       tokens: 'Martian Credits',
-      wardrobe: 'Wardrobe Pro',
+      wardrobe: 'Galactic Boutique',
       buy: 'Acquire',
-      equipped: 'Equipped',
-      equip: 'Equip',
+      equipped: 'Wearing',
+      equip: 'Wear',
       notEnough: 'Insufficient Credits',
       mbtiPrompt: 'Select your Core Type (MBTI)',
       genderPrompt: 'Identify your Signal',
-      male: 'Male',
-      female: 'Female',
-      ranking: 'Neural Rank',
-      milestone: 'Milestone',
+      male: 'Master',
+      female: 'Lady',
+      ranking: 'Popularity Rank',
+      milestone: 'Star Milestone',
       milestoneDesc: 'Achieve 10,000 MC & Top 100 to unlock a custom physical Martian TEE for your companion.',
       teeUnlocked: 'TEE UNLOCKED!',
       claimTee: 'Claim Physical TEE',
-      dailyGoal: 'Daily Habit Synergy',
-      goalEarn: 'Earn',
-      goalSave: 'Save',
-      goalUnlock: 'Goal Unlocked!',
-      goalClaim: 'Claim Mystery Box'
+      dailyGoal: 'Daily Wealth Synergy',
+      goalEarn: 'Earning Mode',
+      goalSave: 'Saving Mode',
+      goalUnlock: 'Synergy Active!',
+      goalClaim: 'Open Gacha Box'
     },
     imageEditor: {
       title: 'Neural Studio Pro',
@@ -197,6 +198,8 @@ export const TRANSLATIONS = {
     connect: '连接钱包',
     trade: '交易',
     audit: '2026 审计',
+    logout: '退出登录',
+    logoutConfirm: '确定要断开当前的神经连接吗？',
     allocationTitle: '资金分配引擎',
     aiRecommendation: 'AI 科学分配建议',
     whyThisRatio: '2026 核心财务逻辑',
@@ -238,27 +241,27 @@ export const TRANSLATIONS = {
       current: '当前方案'
     },
     companion: {
-      title: '火星同伴',
+      title: '理财少女',
       tokens: '火星点券',
-      wardrobe: '高级衣橱',
+      wardrobe: '星际精品店',
       buy: '购买',
       equipped: '已穿戴',
       equip: '穿戴',
       notEnough: '点券不足',
       mbtiPrompt: '选择您的性格核 (MBTI)',
-      genderPrompt: '识别您的信号 (性别)',
-      male: '男性',
-      female: '女性',
-      ranking: '神经排名',
-      milestone: '里程碑',
+      genderPrompt: '识别您的身份 (角色)',
+      male: '主人',
+      female: '大小姐',
+      ranking: '人气排名',
+      milestone: '明星里程碑',
       milestoneDesc: '积攒 10,000 点券并进入全站前 100，即可获赠为您定制的实体火星 TEE。',
       teeUnlocked: '定制 TEE 已解锁！',
       claimTee: '领取实体 TEE',
       dailyGoal: '每日致富协同',
-      goalEarn: '挣钱',
-      goalSave: '攒钱',
+      goalEarn: '挣钱模式',
+      goalSave: '攒钱模式',
       goalUnlock: '协同奖励已激活',
-      goalClaim: '开启火星盲盒'
+      goalClaim: '开启火星抽奖'
     },
     imageEditor: {
       title: '影像工作室 Pro',

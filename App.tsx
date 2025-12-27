@@ -9,6 +9,7 @@ import ImageEditor from './components/ImageEditor';
 import AssetTrendChart from './components/AssetTrendChart';
 import MartianCompanion from './components/MartianCompanion';
 import PricingModal from './components/PricingModal';
+import LegalModal from './components/LegalModal';
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('cn');
@@ -19,6 +20,7 @@ const App: React.FC = () => {
   const [incomeRecords, setIncomeRecords] = useState<IncomeRecord[]>([]);
   const [showPricing, setShowPricing] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [legalType, setLegalType] = useState<'terms' | 'privacy' | null>(null);
   
   const [userStats, setUserStats] = useState<UserStats>(() => {
     const saved = localStorage.getItem('xallet_user_stats');
@@ -83,6 +85,13 @@ const App: React.FC = () => {
       subscription: SubscriptionType.PREMIUM,
       tokens: prev.tokens + 19000 
     }));
+  };
+
+  const handleLogout = () => {
+    if (window.confirm(t.logoutConfirm)) {
+      localStorage.removeItem('xallet_user_stats');
+      window.location.reload();
+    }
   };
 
   const currencySymbol = currency === 'USD' ? '$' : '¥';
@@ -178,35 +187,50 @@ const App: React.FC = () => {
             {lang === 'en' ? 'CN' : 'EN'}
           </button>
           
-          <button 
-            onClick={() => setShowProfileSetup(true)} 
-            className="w-9 h-9 rounded-full bg-black/40 border border-blue-500/40 flex items-center justify-center transition-all hover:border-blue-400 hover:shadow-[0_0_15px_rgba(0,98,255,0.5)] active:scale-90 relative overflow-hidden group shadow-[0_0_8px_rgba(0,0,0,0.5)]"
-          >
-            <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <svg 
-              className="w-[22px] h-[22px] text-blue-500 drop-shadow-[0_0_8px_rgba(0,98,255,0.7)]" 
-              viewBox="0 0 24 24" 
-              fill="currentColor"
+          <div className="flex items-center gap-1.5 ml-1">
+            <button 
+              onClick={() => setShowProfileSetup(true)} 
+              className="w-9 h-9 rounded-full bg-black/40 border border-blue-500/40 flex items-center justify-center transition-all hover:border-blue-400 hover:shadow-[0_0_15px_rgba(0,98,255,0.5)] active:scale-90 relative overflow-hidden group shadow-[0_0_8px_rgba(0,0,0,0.5)]"
             >
-              <path d="M12 2C7.58 2 4 5.58 4 10c0 4.14 3 9 8 12 5-3 8-7.86 8-12 0-4.42-3.58-8-8-8zm-3 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
-            </svg>
-            <div className="absolute inset-0 border border-blue-500/10 rounded-full animate-pulse pointer-events-none"></div>
-          </button>
+              <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <svg 
+                className="w-[20px] h-[20px] text-blue-500 drop-shadow-[0_0_8px_rgba(0,98,255,0.7)]" 
+                viewBox="0 0 24 24" 
+                fill="currentColor"
+              >
+                <path d="M12 2C6.47 2 2 6.47 2 11c0 3.59 1.88 6.74 4.7 8.53.05.03.09.07.13.11l.01.01c.29.29.69.45 1.11.45h8.1c.42 0 .82-.16 1.11-.45.01-.01.01-.01.01-.01.04-.04.08-.08.13-.11 2.82-1.79 4.7-4.94 4.7-8.53 0-4.53-4.47-9-10-9zm-4 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-4 4c-1.5 0-2.5-.5-3-1 .5-.5 1.5-1 3-1s2.5.5 3 1c-.5.5-1.5 1-3 1z" />
+              </svg>
+              <div className="absolute inset-0 border border-blue-500/10 rounded-full animate-pulse pointer-events-none"></div>
+            </button>
+
+            {/* Logout Button */}
+            {!showProfileSetup && (
+              <button 
+                onClick={handleLogout}
+                className="w-9 h-9 rounded-full bg-black/20 border border-white/5 flex items-center justify-center hover:bg-red-500/10 hover:border-red-500/40 transition-all active:scale-90 group"
+                title={t.logout}
+              >
+                <svg className="w-4 h-4 text-gray-500 group-hover:text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                   <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
       </header>
 
       {showProfileSetup && (
         <div className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-2xl flex items-center justify-center p-6">
-          <div className="w-full max-w-sm bg-[#0c0c0e]/95 border border-cyan-500/30 rounded-[3rem] p-10 space-y-8 animate-in zoom-in-95 duration-500 relative z-10 shadow-[0_0_100px_rgba(0,180,216,0.15)]">
+          <div className="w-full max-w-sm bg-[#0c0c0e]/95 border border-blue-500/30 rounded-[3rem] p-10 space-y-8 animate-in zoom-in-95 duration-500 relative z-10 shadow-[0_0_100px_rgba(0,98,255,0.15)]">
             <div className="text-center space-y-2">
               <h2 className="text-4xl font-black uppercase tracking-[0.2em] text-white">XALLET</h2>
-              <p className="text-[9px] text-cyan-400/70 font-black uppercase tracking-[0.4em]">Initialize Neural Profile</p>
+              <p className="text-[9px] text-blue-400/70 font-black uppercase tracking-[0.4em]">Initialize Neural Profile</p>
             </div>
             <div className="space-y-4">
               <label className="block text-[9px] text-gray-500 font-black uppercase tracking-[0.3em] pl-1">{t.companion.genderPrompt}</label>
               <div className="flex gap-3">
                 {(['male', 'female'] as const).map(g => (
-                  <button key={g} onClick={() => setUserStats({...userStats, gender: g})} className={`flex-1 py-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${userStats.gender === g ? 'bg-cyan-500/20 border-cyan-400 text-white shadow-[0_0_20px_rgba(0,180,216,0.3)]' : 'bg-white/5 border-white/5 text-gray-600'}`}>
+                  <button key={g} onClick={() => setUserStats({...userStats, gender: g})} className={`flex-1 py-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${userStats.gender === g ? 'bg-blue-500/20 border-blue-400 text-white shadow-[0_0_20px_rgba(0,98,255,0.3)]' : 'bg-white/5 border-white/5 text-gray-600'}`}>
                     {g === 'male' ? t.companion.male : t.companion.female}
                   </button>
                 ))}
@@ -214,13 +238,13 @@ const App: React.FC = () => {
             </div>
             <div className="space-y-4">
               <label className="block text-[9px] text-gray-500 font-black uppercase tracking-[0.3em] pl-1">{t.companion.mbtiPrompt}</label>
-              <select value={userStats.personality} onChange={(e) => setUserStats({...userStats, personality: e.target.value as MBTI})} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs font-black text-white outline-none focus:border-cyan-500/50 transition-all">
+              <select value={userStats.personality} onChange={(e) => setUserStats({...userStats, personality: e.target.value as MBTI})} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs font-black text-white outline-none focus:border-blue-500/50 transition-all">
                 {['INTJ', 'INTP', 'ENTJ', 'ENTP', 'INFJ', 'INFP', 'ENFJ', 'ENFP', 'ISTJ', 'ISFJ', 'ESTJ', 'ESFJ', 'ISTP', 'ISFP', 'ESTP', 'ESFP'].map(p => (
                   <option key={p} value={p} className="bg-[#0c0c0e]">{p}</option>
                 ))}
               </select>
             </div>
-            <button onClick={() => setShowProfileSetup(false)} className="w-full bg-cyan-600 py-5 rounded-[2rem] text-[12px] font-black uppercase tracking-[0.4em] shadow-[0_10px_40px_rgba(0,180,216,0.4)] text-white mt-4 active:scale-95 transition-all hover:bg-cyan-500">Sync Neural Core</button>
+            <button onClick={() => setShowProfileSetup(false)} className="w-full bg-blue-600 py-5 rounded-[2rem] text-[12px] font-black uppercase tracking-[0.4em] shadow-[0_10px_40px_rgba(0,98,255,0.4)] text-white mt-4 active:scale-95 transition-all hover:bg-blue-500">Sync Neural Core</button>
           </div>
         </div>
       )}
@@ -231,6 +255,14 @@ const App: React.FC = () => {
           currentPlan={userStats.subscription} 
           onClose={() => setShowPricing(false)} 
           onUpgrade={handleUpgrade}
+        />
+      )}
+
+      {legalType && (
+        <LegalModal
+          lang={lang}
+          type={legalType}
+          onClose={() => setLegalType(null)}
         />
       )}
 
@@ -319,6 +351,23 @@ const App: React.FC = () => {
                <span className="text-[8px] font-black text-gray-500 uppercase tracking-[0.3em] mb-3 block">{t.dailyMartian}</span>
                <p className="text-[14px] font-medium italic leading-relaxed text-gray-200">"{lang === 'cn' ? dailyQuote.cn : dailyQuote.en}"</p>
             </div>
+
+            {/* Legal Links Footer */}
+            <footer className="flex justify-center items-center gap-6 pt-4 pb-8 border-t border-white/5">
+              <button 
+                onClick={() => setLegalType('terms')}
+                className="text-[9px] font-black text-gray-600 uppercase tracking-[0.3em] hover:text-blue-400 transition-colors mono"
+              >
+                Terms of Neural Service
+              </button>
+              <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+              <button 
+                onClick={() => setLegalType('privacy')}
+                className="text-[9px] font-black text-gray-600 uppercase tracking-[0.3em] hover:text-blue-400 transition-colors mono"
+              >
+                Privacy Protocol
+              </button>
+            </footer>
           </div>
         )}
         
@@ -333,16 +382,15 @@ const App: React.FC = () => {
         {activeTab === 'studio' && <ImageEditor lang={lang} onExpenseAdded={handleExpenseAdded} onIncomeAdded={handleIncomeAdded} />}
       </main>
 
-      {/* Navigation Ring Fixed Position - Moved higher to avoid cutoff */}
+      {/* Navigation Ring */}
       <div className="fixed bottom-24 left-0 right-0 z-[100] flex justify-center pointer-events-none">
         <div className="relative w-20 h-20 flex items-center justify-center pointer-events-auto">
-          {/* Menu Items arranged in a ring */}
           {isNavOpen && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="relative w-0 h-0">
                 {navItems.map((item, idx) => {
                   const angle = (idx * (360 / navItems.length)) - 90;
-                  const radius = 105; // Slightly tighter for better screen fit
+                  const radius = 105; 
                   const rad = angle * (Math.PI / 180);
                   const x = Math.cos(rad) * radius;
                   const y = Math.sin(rad) * radius;
@@ -369,19 +417,16 @@ const App: React.FC = () => {
             </div>
           )}
 
-          {/* Center Toggle Button */}
           <button 
             onClick={() => setIsNavOpen(!isNavOpen)}
             className={`w-20 h-20 rounded-full bg-gradient-to-b from-[#1a1a1c] to-[#08080a] border border-white/15 flex items-center justify-center shadow-[0_15px_45px_rgba(0,0,0,0.8)] transition-all duration-300 active:scale-95 group relative z-50 ${isNavOpen ? 'scale-90 border-blue-500/50' : ''}`}
           >
             <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] relative">
               {isNavOpen ? (
-                // Close/Back icon
                 <svg className="w-7 h-7 text-blue-400 animate-in fade-in zoom-in duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               ) : (
-                // Core/Home icon
                 <>
                   <div className="w-3 h-3 rounded-full bg-blue-600 shadow-[0_0_15px_#0062ff] animate-pulse"></div>
                   <div className="absolute inset-0 rounded-full border border-blue-500/10 animate-ping"></div>
